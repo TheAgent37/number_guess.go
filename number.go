@@ -6,11 +6,29 @@ import (
 	"strconv"
 )
 
+func main() {
+	if !play_again {
+		fmt.Printf(`
+Welcome to my number guessing game!
+
+Rules:
+
+-You have %d tries
+-Random generated number is between %d and %d (both including)
+-You can play the game how many as you want!
+
+`, MAX_GUESS, MIN_NUM, MAX_NUM)
+	}
+	guess()
+	try_again(win)
+}
+
 const MAX_GUESS = 3
 const MIN_NUM = 1
 const MAX_NUM = 3
 
 var win bool = false
+var play_again bool = false
 
 func guess() {
 	win = false
@@ -43,40 +61,25 @@ func guess() {
 	}
 }
 
-// ! Thıs funciton is not working
 func try_again(win bool) {
-	//var try_loop bool = true
-	// for try_loop {
-	var play string
-	if win {
-		fmt.Printf("Congratulations! Do you want to play again? (y/n): ")
-	} else {
-		fmt.Printf("Do you want to try again? (y/n): ")
+	var try_loop bool = true
+	for try_loop {
+		var play string
+		if win {
+			fmt.Printf("Congratulations! Do you want to play again? (y/n): ")
+		} else {
+			fmt.Printf("Do you want to try again? (y/n): ")
+		}
+		fmt.Scan(&play)
+		switch play {
+		case "y":
+			play_again = true
+			main()
+		case "n":
+			fmt.Println("Goodbye!")
+			try_loop = false
+		default:
+			fmt.Printf("Invalid input.\n\n")
+		}
 	}
-	fmt.Scan(&play)
-	switch play {
-	case "y":
-		guess()
-	case "n":
-		fmt.Println("Goodbye!")
-	default:
-		fmt.Printf("Invalid input.\n\n")
-		//try_loop = false
-		try_again(win)
-	}
-	//}
-}
-
-func main() {
-	fmt.Printf(`
-Welcome to my number guessing game!
-
-Rules:
-
--You have %d tries
--Random generated number is between %d and %d (both including)
--You can play the game how many as you want!
-
-`, MAX_GUESS, MIN_NUM, MAX_NUM)
-	guess()
 }
