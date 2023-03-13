@@ -78,6 +78,7 @@ func try_again(win bool) {
 		case "n":
 			fmt.Println("Goodbye!")
 			try_loop = false
+			break
 		default:
 			fmt.Printf("Invalid input.\n\n")
 		}
